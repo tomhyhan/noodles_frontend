@@ -17,7 +17,7 @@ export async function POST(request) {
         const bytes = await image.arrayBuffer()
         const blob = new Blob([bytes])
 
-        const client = await Client.connect('tomhan41/pasta')
+        const client = await Client.connect(process.env.API_ROUTE)
         const result = await client.predict('/predict', { image: blob })
 
         return NextResponse.json(result.data)
