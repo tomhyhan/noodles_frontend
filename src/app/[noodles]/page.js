@@ -1,3 +1,5 @@
+import { pastaData } from "@/lib/pastaData"
+
 export async function generateStaticParams() {
     return [
         {noodles: "Spaghetti"},
@@ -23,7 +25,7 @@ export default async function Page({ params }) {
     
     const noodles = (await params).noodles
     console.log(noodles)
-    return <div>My Post: {noodles}</div>
+    return <div>My Post: {noodles} <p>{pastaData[noodles]}</p></div>
 }
 
 export const dynamicParams = false
