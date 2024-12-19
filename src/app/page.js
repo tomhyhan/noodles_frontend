@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import PastaLoader from '@/components/loader';
+import { createFarPts, createRavPts } from '@/lib/utils';
 
 export default function Home() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -88,7 +89,14 @@ export default function Home() {
         />
       ),
     },
-    { name: 'Farfalle', styles: { width: '32px', height: '20px' } },
+    {   
+        name: 'Farfalle', 
+        styles: { 
+            width: '40px', 
+            height: '40px',
+            clipPath: `polygon(${createFarPts(40)})`, 
+        },
+    },
     {
       name: 'Fusilli',
       styles: { width: '32px', height: '20px' },
@@ -138,34 +146,28 @@ export default function Home() {
       name: 'Orecchiette',
       styles: { width: '28px', height: '10px', borderRadius: '50%' },
     },
+    // (50,4)
     {
       name: 'Ravioli',
       styles: {
-        width: '50px',
-        height: '50px',
+        width: '40px',
+        height: '40px',
         clipPath: `
         polygon(
-          /* Top edge */
-          0% 20%, 5% 15%, 10% 20%, 15% 15%, 20% 20%, 25% 15%, 30% 20%, 35% 15%, 40% 20%, 45% 15%, 50% 20%, 55% 15%, 60% 20%, 65% 15%, 70% 20%, 75% 15%, 80% 20%, 85% 15%, 90% 20%, 95% 15%, 100% 20%,
-          /* Right edge */
-          80% 20%, 85% 25%, 80% 30%, 85% 35%, 80% 40%, 85% 45%, 80% 50%, 85% 55%, 80% 60%, 85% 65%, 80% 70%, 85% 75%, 80% 80%,
-          /* Bottom edge */
-          100% 80%, 95% 85%, 90% 80%, 85% 85%, 80% 80%, 75% 85%, 70% 80%, 65% 85%, 60% 80%, 55% 85%, 50% 80%, 45% 85%, 40% 80%, 35% 85%, 30% 80%, 25% 85%, 20% 80%, 15% 85%, 10% 80%, 5% 85%, 0% 80%,
-          /* Left edge */
-          20% 80%, 15% 75%, 20% 70%, 15% 65%, 20% 60%, 15% 55%, 20% 50%, 15% 45%, 20% 40%, 15% 35%, 20% 30%, 15% 25%, 20% 20%
-        )
-      `,
-      },
+            ${createRavPts(40)}
+            )
+            `,
+        },
     },
     {
-      name: 'Tortellini',
-      styles: { width: '28px', height: '10px', borderRadius: '50%' },
+        name: 'Tortellini',
+        styles: { width: '28px', height: '10px', borderRadius: '50%' },
     },
     {
-      name: 'Fregola',
-      styles: { width: '28px', height: '10px', borderRadius: '50%' },
+        name: 'Fregola',
+        styles: { width: '15px', height: '15px', borderRadius: '50%' },
     },
-  ];
+];
 
   return (
     <div className='w-screen h-screen bg-amber-50 relative overflow-hidden flex  justify-center '>
@@ -174,7 +176,7 @@ export default function Home() {
           Pasta Classification
         </h1>
 
-        <div className='p-4 max-w-2xl mx-auto'>
+        {/* <div className='p-4 max-w-2xl mx-auto'>
           <form onSubmit={handleSubmit} className='space-y-4 text-left'>
             <div className='border-2 border-dashed border-gray-300 rounded-lg p-4'>
               <input
@@ -203,7 +205,7 @@ export default function Home() {
               {loading ? <PastaLoader /> : 'Analyze Image'}
             </button>
           </form>
-        </div>
+        </div> */}
 
         {/* Animated pasta shapes */}
         <h1 className='text-4xl font-bold mb-4 text-amber-800'>Noodle list</h1>
@@ -213,9 +215,7 @@ export default function Home() {
             <div key={pasta.name} className='m-5'>
               {/* Pasta shape */}
               <div
-                className={`bg-amber-300 shadow-md animate-bounce relative ${
-                  pasta.className && pasta.className
-                }`}
+                className={`bg-amber-300 shadow-md animate-bounce relative`}
                 style={{
                   animation: `bounce ${1 + index * 0.2}s infinite ease-in-out`,
                   animationDelay: `${index * 0.2}s`,
