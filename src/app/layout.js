@@ -21,12 +21,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen h-screen bg-amber-50 relative overflow-hidden flex  justify-center`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen min-h-screen bg-amber-50 relative overflow-x-hidden flex  justify-center`}
       >
         {children}
-        <div className='absolute inset-0 -z-10'>
-          <div className='absolute top-4 left-4 w-8 h-8 bg-amber-200 rounded-full opacity-50 animate-pulse' />
-          <div className='absolute bottom-4 right-4 w-12 h-12 bg-amber-200 rounded-full opacity-50 animate-pulse' />
+        <div className='absolute inset-0 -z-10 w-fill h-full'>
+          <div className='absolute top-5 left-5 w-8 h-8 bg-amber-200 rounded-full opacity-50 animate-pulse' />
+          <div className='absolute bottom-5 right-5 w-12 h-12 bg-amber-200 rounded-full opacity-50 animate-pulse' />
         </div>
       </body>
     </html>

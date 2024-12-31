@@ -3,7 +3,7 @@ import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { PastaLoader } from '@/components/PastaLoader';
 import { PastaList } from '@/components/PastaList';
-import { PastaForm } from '@/components/PastaForm';
+import { Dragging, PastaForm } from '@/components/PastaForm';
 
 export default function Home() {
   const [preview, setPreview] = useState(null);
@@ -15,14 +15,15 @@ export default function Home() {
   const handleFileInput = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      setPreview(URL.createObjectURL(file));
-      await submitImage(file);
+      const previewUrl = URL.createObjectURL(file);
+      setPreview(previewUrl);
+      await submitImage(file, previewUrl);
       e.target.value = '';
-      return () => URL.revokeObjectURL(objectUrl);
+      return () => URL.revokeObjectURL(previewUrl);
     }
   };
 
-  const submitImage = async (file) => {
+  const submitImage = async (file, previewUrl) => {
     if (!file) {
       alert('Please upload a File');
       return;
@@ -42,7 +43,7 @@ export default function Home() {
     setLoading(true);
     try {
       const formData = new FormData();
-      // formData.append('image', file);
+      formData.append('image', file);
 
       // const response = await fetch('/api/predict', {
       //   method: 'POST',
@@ -52,13 +53,14 @@ export default function Home() {
       // if (!response.ok) throw new Error('Prediction failed');
 
       // const data = await response.json();
-      // router.push(`/${data[0]}`);
+      const data = ['Macaroni'];
+      console.log('preview', previewUrl);
+      router.push(`/${data[0]}?image=${encodeURIComponent(previewUrl)}`);
     } catch (error) {
       console.error('Error:', error);
       alert('Failed to process image');
     } finally {
-      setTimeout(() => setLoading(false), 10000);
-      // setLoading(false);
+      setLoading(false);
     }
   };
 
@@ -88,53 +90,35 @@ export default function Home() {
 
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       const file = e.dataTransfer.files[0];
-      setPreview(URL.createObjectURL(file));
-      await submitImage(file);
+      const previewUrl = URL.createObjectURL(file);
+      setPreview(previewUrl);
+      await submitImage(file, previewUrl);
       e.dataTransfer.clearData();
-      return () => URL.revokeObjectURL(objectUrl);
+      return () => URL.revokeObjectURL(previewUrl);
     }
   };
 
   return (
     <div
-      className='text-center max-w-screen-md'
+      className='text-center flex flex-col gap-10 m-16'
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
-      <h1 className='text-4xl mt-8 font-bold mb-4 text-amber-800'>
-        Pasta Classification
-      </h1>
-
-      {isDragging && (
-        <div className='absolute inset-0 bg-amber-800 bg-opacity-50 z-50 m-0 p-8'>
-          <div className='text-center flex flex-col items-center justify-center border-[1rem] border-white border-dashed rounded-lg w-full h-full'>
-            <div className='text-5xl mb-4' role='img' aria-label='pasta emoji'>
-              🍝
-            </div>
-            <p className='text-4xl text-white font-semibold'>
-              Drag and Drop your pasta image here
-            </p>
-          </div>
+      <div className='text-amber-800 mb-3 max-w-2xl mx-auto flex flex-col gap-3'>
+        <div className='mb-6'>
+          <h1 className='text-5xl font-bold mb-2'>Find Your Pasta Shape</h1>
+          <p className='text-amber-600 text-lg font-medium'>
+            Upload any pasta photo for instant identification
+          </p>
         </div>
-      )}
-
-      <PastaForm onFileInput={handleFileInput} />
-      <div className='p-4 max-w-2xl mx-auto'>
-        {/* {preview && (
-            <div className='relative h-64 w-full'>
-              <Image
-                src={preview}
-                alt='Preview'
-                fill
-                className='object-contain'
-              />
-            </div>
-          )} */}
-        {loading ? <PastaLoader preview={preview} /> : <></>}
+        <PastaForm onFileInput={handleFileInput} />
         <PastaList />
       </div>
+
+      {isDragging && <Dragging />}
+      {loading ? <PastaLoader preview={preview} /> : <></>}
     </div>
   );
 }

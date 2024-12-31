@@ -1,14 +1,29 @@
+export function Dragging() {
+  return (
+    <div className='absolute inset-0 bg-amber-800 bg-opacity-50 z-50 m-0 p-8'>
+      <div className='text-center flex flex-col items-center justify-center border-[1rem] border-white border-dashed rounded-lg w-full h-full'>
+        <div className='text-5xl mb-4' role='img' aria-label='pasta emoji'>
+          🍝
+        </div>
+        <p className='text-4xl text-white font-semibold'>
+          Drag and Drop your pasta image here
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export function PastaForm({ onFileInput }) {
   return (
-    <div className='space-y-4 text-left'>
-      <div className='border-2 border-dashed border-amber-800 rounded-lg p-8 transition-colors hover:bg-amber-50 relative'>
+    <div className='space-y-4 text-left mb-10 flex justify-center'>
+      <div className='border-2 border-dashed border-amber-800 rounded-lg p-8  hover:bg-amber-50 relative h-[15rem] w-[30rem]'>
         <input
           onChange={onFileInput}
           type='file'
           accept='image/*'
           className='absolute inset-0 w-full h-full opacity-0 cursor-pointer'
         />
-        <div className='text-center'>
+        <div className='text-center flex flex-col justify-center items-center h-full'>
           <div className='text-4xl mb-2'>🍝</div>
           <p className='text-amber-800 font-medium'>
             Drag and drop your pasta image here
@@ -20,22 +35,3 @@ export function PastaForm({ onFileInput }) {
     </div>
   );
 }
-
-const UploadIcon = () => (
-  <svg
-    xmlns='http://www.w3.org/2000/svg'
-    width='24'
-    height='24'
-    viewBox='0 0 24 24'
-    fill='none'
-    stroke='currentColor'
-    strokeWidth='2'
-    strokeLinecap='round'
-    strokeLinejoin='round'
-    className='w-12 h-12 mx-auto mb-4 text-amber-800'
-  >
-    <path d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4' />
-    <polyline points='17 8 12 3 7 8' />
-    <line x1='12' y1='3' x2='12' y2='15' />
-  </svg>
-);
