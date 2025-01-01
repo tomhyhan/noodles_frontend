@@ -1,9 +1,12 @@
 'use client';
+
 import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { PastaLoader } from '@/components/PastaLoader';
 import { PastaList } from '@/components/PastaList';
 import { Dragging, PastaForm } from '@/components/PastaForm';
+import { Toaster } from '@/components/ui/toaster';
+import { useToast } from '@/hooks/use-toast';
 
 export default function Home() {
   const [preview, setPreview] = useState(null);
@@ -11,6 +14,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const dragCounter = useRef(0);
   const router = useRouter();
+  const { toast } = useToast();
 
   const handleFileInput = async (e) => {
     const file = e.target.files[0];
@@ -25,7 +29,11 @@ export default function Home() {
 
   const submitImage = async (file, previewUrl) => {
     if (!file) {
-      alert('Please upload a File');
+      toast({
+        variant: 'destructive',
+        title: 'File not found',
+        description: 'Please upload a File',
+      });
       return;
     }
 
@@ -36,7 +44,12 @@ export default function Home() {
       'image/webp',
     ];
     if (!validImageTypes.includes(file.type)) {
-      alert('Please upload a valid image file (JPEG, PNG, GIF, or WebP)');
+      toast({
+        variant: 'destructive',
+        title: 'Invalid File Type',
+        description:
+          'Please upload a valid image file (JPEG, PNG, GIF, or WebP)',
+      });
       return;
     }
 
@@ -45,20 +58,24 @@ export default function Home() {
       const formData = new FormData();
       formData.append('image', file);
 
-      // const response = await fetch('/api/predict', {
-      //   method: 'POST',
-      //   body: formData,
-      // });
+      const response = await fetch('/api/predict', {
+        method: 'POST',
+        body: formData,
+      });
 
-      // if (!response.ok) throw new Error('Prediction failed');
+      if (!response.ok) throw new Error('Prediction failed');
 
-      // const data = await response.json();
-      const data = ['Macaroni'];
-      console.log('preview', previewUrl);
+      const data = await response.json();
+
+      // const data = ['Macaroni'];
       router.push(`/${data[0]}?image=${encodeURIComponent(previewUrl)}`);
     } catch (error) {
       console.error('Error:', error);
-      alert('Failed to process image');
+      toast({
+        variant: 'destructive',
+        title: 'Image Processing Error',
+        description: 'Failed to process image',
+      });
     } finally {
       setLoading(false);
     }
@@ -119,6 +136,7 @@ export default function Home() {
 
       {isDragging && <Dragging />}
       {loading ? <PastaLoader preview={preview} /> : <></>}
+      <Toaster />
     </div>
   );
 }
