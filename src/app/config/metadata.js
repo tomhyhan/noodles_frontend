@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: 'Find Your Pasta',
-  url: 'http://localhost:3000',
+  url: process.env.HOST_URL,
   creator: 'tomhyhan',
 };
 

@@ -1,4 +1,3 @@
-// app/api/favicon/route.js
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';

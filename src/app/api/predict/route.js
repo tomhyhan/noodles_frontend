@@ -1,4 +1,3 @@
-// app/api/predict/route.js
 import { NextResponse } from 'next/server';
 import { Client } from '@gradio/client';
 
@@ -16,7 +15,7 @@ export async function POST(request) {
 
     const client = await Client.connect(process.env.API_ROUTE);
     const result = await client.predict('/predict', { image: blob });
-    console.log('result', result);
+
     return NextResponse.json(result.data);
   } catch (error) {
     console.error('Error:', error);

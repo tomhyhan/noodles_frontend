@@ -1,6 +1,7 @@
 import { PastaImage } from '@/components/PastaResult';
 import { pastaData } from '@/lib/pastaData';
 import Link from 'next/link';
+import { pastajsonld } from '../config/jsonld';
 
 export async function generateStaticParams() {
   return [
@@ -35,29 +36,7 @@ export default async function Page({ params }) {
   const noodles = (await params).noodles;
   const description = pastaData[noodles];
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'AnalysisNewsArticle', // More appropriate type for analysis results
-    headline: `Pasta Classification Result: ${noodles}`,
-    description: description,
-    about: {
-      '@type': 'Food',
-      name: noodles,
-      description: description,
-      category: 'Pasta',
-    },
-    // Optional: Add details about the analysis/classification
-    disambiguatingDescription: 'AI-powered pasta shape classification result',
-    articleBody: description,
-    // You can add details about the analysis method if desired
-    specialty: 'Image Classification',
-    keywords: [
-      'pasta classification',
-      'AI analysis',
-      'pasta types',
-      noodles.toLowerCase(),
-    ],
-  };
+  const jsonLd = pastajsonld(noodles, description);
 
   return (
     <>

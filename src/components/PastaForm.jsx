@@ -1,6 +1,6 @@
 export function Dragging() {
   return (
-    <div className='absolute inset-0 bg-amber-800 bg-opacity-50 z-50 m-0 p-8'>
+    <div className='fixed inset-0 bg-amber-800 bg-opacity-50 z-50 m-0 p-8 h-screen w-screen'>
       <div className='text-center flex flex-col items-center justify-center border-[1rem] border-white border-dashed rounded-lg w-full h-full'>
         <div className='text-5xl mb-4' role='img' aria-label='pasta emoji'>
           🍝
