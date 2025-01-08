@@ -1,6 +1,17 @@
 import React, { useState, useEffect, useCallback, memo } from 'react';
 import Image from 'next/image';
 
+const LETTERS = 'Noodles'.split('');
+const COLORS = [
+  '#FF6B6B',
+  '#4ECDC4',
+  '#FFB84D',
+  '#95E1D3',
+  '#FF8B94',
+  '#96CEB4',
+  '#FFEEAD',
+];
+
 const PreviewComponent = memo(({ preview }) => {
   return (
     <div className='flex justify-center items-center h-64 w-full'>
@@ -9,42 +20,33 @@ const PreviewComponent = memo(({ preview }) => {
         alt='Preview'
         width={500}
         height={300}
-        className='max-h-64 w-auto  rounded-md'
+        className='max-h-64 w-auto rounded-md'
       />
     </div>
   );
 });
 
+PreviewComponent.displayName = 'PreviewComponent';
+
 export function PastaLoader({ preview }) {
   const [activeLetter, setActiveLetter] = useState(0);
-  const letters = 'Noodles'.split('');
-  const n_letters = letters.length;
+  const n_letters = LETTERS.length;
   const ballTravelTime = 4;
   const intervalTime = (ballTravelTime / n_letters) * 1000;
 
-  const colors = [
-    '#FF6B6B',
-    '#4ECDC4',
-    '#FFB84D',
-    '#95E1D3',
-    '#FF8B94',
-    '#96CEB4',
-    '#FFEEAD',
-  ];
-
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveLetter((prev) => (prev + 1) % letters.length);
+      setActiveLetter((prev) => (prev + 1) % LETTERS.length);
     }, intervalTime);
     return () => clearInterval(interval);
-  }, []);
+  }, [intervalTime]);
 
   return (
     <div className='fixed left-0 top-0 flex h-screen w-screen items-center justify-center z-50 bg-black flex-col bg-opacity-50 gap-14'>
       {preview && <PreviewComponent preview={preview} />}
       <div className='relative'>
         <div className='flex'>
-          {letters.map((letter, index) => (
+          {LETTERS.map((letter, index) => (
             <div
               key={index}
               className='text-6xl font-bold text-center font-comic'
@@ -53,7 +55,7 @@ export function PastaLoader({ preview }) {
                 display: 'inline-block',
                 transformOrigin: 'center',
                 width: '50px',
-                color: colors[index],
+                color: COLORS[index],
               }}
             >
               {letter}
