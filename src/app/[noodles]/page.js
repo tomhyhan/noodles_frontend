@@ -2,6 +2,7 @@ import { PastaImage } from '@/components/PastaResult';
 import { pastaData } from '@/lib/pastaData';
 import Link from 'next/link';
 import { pastajsonld } from '../config/jsonld';
+import { Suspense } from 'react';
 
 export async function generateStaticParams() {
   return [
@@ -35,7 +36,6 @@ export async function generateMetadata({ params }) {
 export default async function Page({ params }) {
   const noodles = (await params).noodles;
   const description = pastaData[noodles];
-
   const jsonLd = pastajsonld(noodles, description);
 
   return (
@@ -56,7 +56,9 @@ export default async function Page({ params }) {
             </h1>
           </div>
 
-          <PastaImage />
+          <Suspense fallback={<div>Loading...</div>}>
+            <PastaImage />
+          </Suspense>
 
           <div className='bg-amber-50 p-6 rounded-xl shadow-sm'>
             <div className='space-y-4'>
