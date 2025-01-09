@@ -2,7 +2,7 @@
 
 import Script from 'next/script';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 
 const GA_MEASUREMENT_ID = process.env.GA_MEASUREMENT_ID;
 
