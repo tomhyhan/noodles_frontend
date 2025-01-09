@@ -2,6 +2,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 import { defaultMetadata } from './config/metadata';
 import { defaultjsonld } from './config/jsonld';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -44,6 +45,7 @@ export default function RootLayout({ children }) {
             © {new Date().getFullYear()} tomhyhan
           </p>
         </footer>
+        <GoogleAnalytics />
       </body>
     </html>
   );

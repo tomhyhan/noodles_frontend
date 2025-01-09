@@ -67,7 +67,6 @@ export default function Home() {
 
       const data = await response.json();
 
-      // const data = ['Macaroni'];
       router.push(`/${data[0]}?image=${encodeURIComponent(previewUrl)}`);
     } catch (error) {
       console.error('Error:', error);
