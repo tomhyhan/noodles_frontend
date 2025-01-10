@@ -3,6 +3,7 @@ import './globals.css';
 import { defaultMetadata } from './config/metadata';
 import { defaultjsonld } from './config/jsonld';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -46,6 +47,7 @@ export default function RootLayout({ children }) {
           </p>
         </footer>
         <GoogleAnalytics />
+        <SpeedInsights />
       </body>
     </html>
   );
