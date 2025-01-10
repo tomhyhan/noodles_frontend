@@ -4,7 +4,7 @@ import Script from 'next/script';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect } from 'react';
 
-const GA_MEASUREMENT_ID = process.env.GA_MEASUREMENT_ID;
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 function Analytics() {
   const pathname = usePathname();
@@ -14,7 +14,7 @@ function Analytics() {
     if (pathname) {
       const url = pathname + searchParams.toString();
       window.gtag('config', GA_MEASUREMENT_ID, {
-        page_location: window.location.origin + url,
+        page_path: window.location.origin + url,
       });
     }
   }, [pathname, searchParams]);
@@ -34,9 +34,7 @@ export default function GoogleAnalytics() {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', '${GA_MEASUREMENT_ID}', {
-            page_location: window.location.href,
-          });
+          gtag('config', '${GA_MEASUREMENT_ID}');
         `}
       </Script>
       <Suspense fallback={null}>
