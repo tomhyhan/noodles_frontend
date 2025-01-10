@@ -7,6 +7,7 @@ import { PastaList } from '@/components/PastaList';
 import { Dragging, PastaForm } from '@/components/PastaForm';
 import { Toaster } from '@/components/ui/toaster';
 import { useToast } from '@/hooks/use-toast';
+import { trackFileUpload } from '@/components/GoogleAnalytics';
 
 export default function Home() {
   const [preview, setPreview] = useState(null);
@@ -66,10 +67,10 @@ export default function Home() {
       if (!response.ok) throw new Error('Prediction failed');
 
       const data = await response.json();
-
+      trackFileUpload(file, true);
       router.push(`/${data[0]}?image=${encodeURIComponent(previewUrl)}`);
     } catch (error) {
-      console.error('Error:', error);
+      trackFileUpload(file, false);
       toast({
         variant: 'destructive',
         title: 'Image Processing Error',

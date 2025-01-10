@@ -1,8 +1,13 @@
 import { createFarPts, createRavPts } from '@/lib/utils';
 import Link from 'next/link';
 import Image from 'next/image';
+import { trackRouteClick } from './GoogleAnalytics';
 
 export function PastaList() {
+  const handlePastaClick = (pastaName) => {
+    trackRouteClick(pastaName);
+  };
+
   return (
     <div>
       <div className='text-center mb-8'>
@@ -20,8 +25,8 @@ export function PastaList() {
             href={`/${pasta.name}`}
             key={pasta.name}
             className='m-5 flex flex-col justify-center items-center basis-1/4'
+            onClick={() => handlePastaClick(pasta.name)}
           >
-            {/* Pasta shape */}
             <div
               className={`bg-amber-300 shadow-md relative ${pasta.className}`}
               style={{
@@ -32,7 +37,7 @@ export function PastaList() {
             >
               {pasta.component && pasta.component}
             </div>
-            {/* Pasta name */}
+
             <div className='mt-2 text-sm text-amber-700'>{pasta.name}</div>
           </Link>
         ))}

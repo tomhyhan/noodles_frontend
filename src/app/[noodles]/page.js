@@ -1,6 +1,5 @@
 import { PastaImageResult } from '@/components/PastaResult';
 import { pastaData } from '@/lib/pastaData';
-import Link from 'next/link';
 import { pastajsonld } from '../config/jsonld';
 import { Suspense } from 'react';
 

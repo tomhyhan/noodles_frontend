@@ -22,6 +22,27 @@ function Analytics() {
   return null;
 }
 
+export const trackRouteClick = (pastaName) => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', 'pasta_menu_click', {
+      pasta_name: pastaName,
+    });
+  }
+};
+
+export const trackFileUpload = (file, success) => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    const safeFileName = file.name.slice(0, 20);
+    window.gtag('event', 'file_upload', {
+      file_type: file.type,
+      file_size: file.size,
+      file_name: safeFileName,
+      success: success,
+      timestamp: new Date().toISOString(),
+    });
+  }
+};
+
 export default function GoogleAnalytics() {
   return (
     <>
