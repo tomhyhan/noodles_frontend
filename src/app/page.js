@@ -117,13 +117,13 @@ export default function Home() {
 
   return (
     <div
-      className='text-center flex flex-col gap-10 m-16'
+      className='text-center flex flex-col gap-10 m-5 md:m-16'
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
-      <div className='text-amber-800 mb-3 max-w-2xl mx-auto flex flex-col gap-3'>
+      <div className='text-amber-800 mb-3 max-w-2xl md:mx-auto flex flex-col gap-3'>
         <div className='mb-6'>
           <h1 className='text-5xl font-bold mb-2'>Find Your Pasta Shape</h1>
           <p className='text-amber-600 text-lg font-medium'>
