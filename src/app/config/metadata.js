@@ -10,7 +10,7 @@ export const defaultMetadata = {
     default: `${siteConfig.name}`,
   },
   description:
-    'Never be confused by pasta menus again! Explore various authentic Italian pasta shapes, learn their perfect sauce pairings, and order with confidence at any restaurant.',
+    'Find & learn your pasta shape. Never be confused by pasta menus again! Explore various authentic Italian pasta shapes, learn their perfect sauce pairings, and order with confidence at any restaurant.',
 
   icons: {
     icon: '/api/favicon',
@@ -50,7 +50,7 @@ export const defaultMetadata = {
   openGraph: {
     title: `${siteConfig.name}`,
     description:
-      'Never be confused by pasta menus again! Explore various authentic Italian pasta shapes, learn their perfect sauce pairings, and order with confidence at any restaurant.',
+      'Find & learn your pasta shape, Never be confused by pasta menus again! Explore various authentic Italian pasta shapes, learn their perfect sauce pairings, and order with confidence at any restaurant.',
     url: siteConfig.url,
     siteName: siteConfig.name,
     locale: 'en_US',
