@@ -7,7 +7,9 @@ import Link from 'next/link';
 
 export function PastaImageResult({ noodles }) {
   const searchparams = useSearchParams();
-  const imageData = searchparams.get('image');
+  const imageData = searchparams.get('image')
+    ? searchparams.get('image')
+    : `/defaultpasta/${noodles}.jpg`;
   return (
     <>
       {imageData && (
