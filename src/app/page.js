@@ -74,7 +74,7 @@ export default function Home() {
       toast({
         variant: 'destructive',
         title: 'Image Processing Error',
-        description: 'Failed to process image',
+        description: 'Machine is being warmed up! please try again',
       });
     } finally {
       setLoading(false);
